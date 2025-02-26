@@ -1,13 +1,25 @@
-function knightMoves(currentPos, nextMove) {
+function knightMoves(currentPos, nextMove) {}
+
+function moveValidity(currentPos, nextMove) {
   const [currentX, currentY] = currentPos;
   const [nextX, nextY] = nextMove;
   // checking whether both inputs within chessboard
+
   if (currentX > 7 || currentY > 7 || currentX < 0 || currentY < 0) {
-    throw new Error("Illegal position, please try again");
+    return false;
   }
 
   if (nextX > 7 || nextY > 7 || nextX < 0 || nextY < 0) {
-    throw new Error("Illegal move, please try again");
+    return false;
+  }
+
+  let diffX = Math.abs(currentX - nextX);
+  let diffY = Math.abs(currentY - nextY);
+
+  if ((diffX == 2 && diffY == 1) || (diffY == 2 && diffX)) {
+    return true;
+  } else {
+    return false;
   }
 }
 
@@ -25,6 +37,8 @@ i can group them up by two: going two times direction then left or right
 */
 
 /*
+[]
+
    0   1   2   3   4   5   6   7
 7 [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ]
 6 [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ]
