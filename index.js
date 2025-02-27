@@ -1,4 +1,32 @@
-function knightMoves(currentPos, nextMove) {}
+function knightMoves(currentPos) {
+  if (!moveValidity(currentPos)) {
+    throw Error("Invalid Move");
+  }
+}
+
+function generateMove(currentPos) {
+  // In general, knight can have min 2 moves, and max 8 moves variations.
+  // I will generate all 8, and then check them with moveValidity()
+  const allPossibilities = [];
+  const [currentX, currentY] = currentPos;
+  // const queue = [] -- possibly for another function
+  // x+2 y+1 and y-1
+  allPossibilities.push([currentX + 2, currentY + 1]);
+  allPossibilities.push([currentX + 2, currentY - 1]);
+  // x-2 y+1 and y-1
+  allPossibilities.push([currentX - 2, currentY + 1]);
+  allPossibilities.push([currentX - 2, currentY - 1]);
+  // y+2 x+1 and x-1
+  allPossibilities.push([currentX + 1, currentY + 2]);
+  allPossibilities.push([currentX - 1, currentY + 2]);
+  // y-2 x+1 and x-1
+  allPossibilities.push([currentX + 1, currentY - 2]);
+  allPossibilities.push([currentX - 1, currentY - 2]);
+
+  return allPossibilities.filter((move) => moveValidity(currentPos, move));
+}
+
+console.log(generateMove([0, 0]));
 
 function moveValidity(currentPos, nextMove) {
   const [currentX, currentY] = currentPos;
@@ -16,7 +44,7 @@ function moveValidity(currentPos, nextMove) {
   let diffX = Math.abs(currentX - nextX);
   let diffY = Math.abs(currentY - nextY);
 
-  if ((diffX == 2 && diffY == 1) || (diffY == 2 && diffX)) {
+  if ((diffX == 2 && diffY == 1) || (diffY == 2 && diffX == 1)) {
     return true;
   } else {
     return false;
@@ -38,6 +66,16 @@ i can group them up by two: going two times direction then left or right
 
 /*
 []
+
+   0   1   2   3   4   5   6   7
+7 [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ]
+6 [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ]
+5 [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ]
+4 [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ]
+3 [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ]
+2 [ ] [0] [ ] [ ] [ ] [ ] [ ] [ ]
+1 [ ] [ ] [0] [ ] [ ] [ ] [ ] [ ]
+0 [X] [ ] [ ] [ ] [ ] [ ] [ ] [ ]
 
    0   1   2   3   4   5   6   7
 7 [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ]
