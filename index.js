@@ -73,13 +73,10 @@ const knightAction = (function () {
 })();
 
 function knightMoves(currentPos, nextMove) {
-  if (!moveValidity(currentPos)) {
-    throw Error("Invalid Move");
-  }
-  const queue = [];
-  const visited = [];
-  generateMove(currentPos).forEach((move) => queue.push(move));
+  return knightAction.levelOrder(currentPos, nextMove);
 }
+
+knightMoves([0, 0], [1, 5]);
 
 /*
 knight's legal move L-shaped
